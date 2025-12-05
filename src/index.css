@@ -26,7 +26,7 @@ All colors MUST be HSL.
     --muted: 0 0% 94%;
     --muted-foreground: 0 0% 45%;
 
-    --accent: 25 70% 60%;
+    --accent: 14 56% 75%;
     --accent-foreground: 0 0% 10%;
 
     --destructive: 0 84% 60%;
@@ -89,13 +89,35 @@ All colors MUST be HSL.
 @layer base {
   * {
     @apply border-border;
+    cursor: crosshair;
+    /* Fallback */
   }
 
   body {
-    @apply bg-background text-foreground font-body;
+    @apply bg-background text-foreground font-body relative;
+    overflow-x: hidden;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  /* Film Grain Overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-display;
   }
 }
@@ -104,7 +126,7 @@ All colors MUST be HSL.
   .fade-in {
     animation: fadeIn 0.6s ease-out forwards;
   }
-  
+
   .fade-in-up {
     animation: fadeInUp 0.8s ease-out forwards;
   }
@@ -113,19 +135,40 @@ All colors MUST be HSL.
     from {
       opacity: 0;
     }
+
     to {
       opacity: 1;
     }
   }
+
 
   @keyframes fadeInUp {
     from {
       opacity: 0;
       transform: translateY(20px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  .gallery-container img {
+    @apply rounded-sm hover:opacity-90 transition-opacity duration-300;
+    cursor: zoom-in;
+  }
+
+  /* Custom Viewfinder Cursor for clickable elements */
+  a,
+  button,
+  .cursor-pointer {
+    cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='10' stroke='black' stroke-width='1.5' stroke-opacity='0.8'/%3E%3Cline x1='12' y1='5' x2='12' y2='19' stroke='black' stroke-width='1' stroke-opacity='0.6'/%3E%3Cline x1='5' y1='12' x2='19' y2='12' stroke='black' stroke-width='1' stroke-opacity='0.6'/%3E%3C/svg%3E") 12 12, pointer;
+  }
+
+  .dark a,
+  .dark button,
+  .dark .cursor-pointer {
+    cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='10' stroke='white' stroke-width='1.5' stroke-opacity='0.8'/%3E%3Cline x1='12' y1='5' x2='12' y2='19' stroke='white' stroke-width='1' stroke-opacity='0.6'/%3E%3Cline x1='5' y1='12' x2='19' y2='12' stroke='white' stroke-width='1' stroke-opacity='0.6'/%3E%3C/svg%3E") 12 12, pointer;
   }
 }
