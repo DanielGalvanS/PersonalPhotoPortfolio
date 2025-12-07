@@ -11,6 +11,8 @@ import ProductPage from "./pages/ProductPage";
 import AuthorPage from "./pages/AuthorPage";
 import LandscapePage from "./pages/LandscapePage";
 import EditorialPage from "./pages/EditorialPage";
+import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +32,7 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/retratos" element={<PortraitPage />} />
@@ -40,9 +43,10 @@ const App = () => {
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <Footer />
         </BrowserRouter>
       </TooltipProvider>
-    </QueryClientProvider>
+    </QueryClientProvider >
   );
 };
 
