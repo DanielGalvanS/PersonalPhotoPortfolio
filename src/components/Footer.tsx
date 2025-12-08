@@ -7,13 +7,12 @@ const Footer = () => {
             <div className="container mx-auto px-6">
                 <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                     <div className="text-center md:text-left">
-                        <h3 className="font-display text-lg font-semibold tracking-tight">Daniel Galvan</h3>
+                        <h3 className="font-display text-lg font-semibold tracking-tight">Paula Mitchell</h3>
                         <p className="text-sm text-muted-foreground mt-1">Visual Storyteller</p>
                     </div>
 
                     <div className="flex gap-8">
                         <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Instagram</a>
-                        <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Twitter</a>
                         <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">LinkedIn</a>
                     </div>
 

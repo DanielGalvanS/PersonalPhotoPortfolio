@@ -12,12 +12,6 @@ const Index = () => {
       <About />
       <Gallery />
       <Contact />
-      
-      <footer className="py-8 text-center border-t border-border">
-        <p className="font-body text-sm text-muted-foreground">
-          © 2025 Photography Portfolio. All rights reserved.
-        </p>
-      </footer>
     </div>
   );
 };

@@ -93,9 +93,15 @@ All colors MUST be HSL.
     /* Fallback */
   }
 
+  /* Hide default cursor everywhere to allow CustomCursor */
+  *,
+  *::before,
+  *::after {
+    cursor: none !important;
+  }
+
   body {
-    @apply bg-background text-foreground font-body relative;
-    overflow-x: hidden;
+    @apply bg-background text-foreground antialiased overflow-x-hidden;
   }
 
   /* Film Grain Overlay */

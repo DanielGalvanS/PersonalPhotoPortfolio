@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PhotoAlbum from "react-photo-album";
 import Lightbox from "yet-another-react-lightbox";
@@ -23,13 +23,11 @@ const photos = [
   { src: gallery1, width: 800, height: 1000, category: "Retratos" },
   { src: gallery2, width: 1200, height: 800, category: "Producto" },
   { src: portrait1, width: 800, height: 1200, category: "Retratos" },
-  { src: gallery3, width: 1000, height: 800, category: "Autor" },
   { src: editorial1, width: 800, height: 1000, category: "Editorial" },
   { src: gallery4, width: 1200, height: 800, category: "Landscapes" },
   { src: landscape1, width: 1500, height: 1000, category: "Landscapes" },
   { src: gallery5, width: 800, height: 1200, category: "Editorial" },
-  { src: product1, width: 1000, height: 1000, category: "Producto" },
-  { src: gallery6, width: 1200, height: 800, category: "Autor" },
+  { src: product1, width: 1000, height: 1000, category: "Producto" }
 ];
 
 const collections = [
@@ -52,15 +50,6 @@ const collections = [
     client: "Commercial"
   },
   {
-    title: "Autor",
-    image: gallery3,
-    count: 2,
-    className: "md:col-span-1 md:row-span-1",
-    description: "Proyectos personales y experimentales donde la creatividad no tiene límites. Una mezcla de técnicas y conceptos abstractos.",
-    year: "Ongoing",
-    client: "Personal"
-  },
-  {
     title: "Landscapes",
     image: landscape1,
     count: 2,
@@ -81,26 +70,39 @@ const collections = [
 ];
 
 const GalleryItem = ({ collection, idx, onClick }: { collection: any, idx: number, onClick: () => void }) => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  // Cinematic "Window" Effect: Image moves slower than scroll
+  const y = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
+  // Scale keeps edges covered during movement
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.15, 1.25, 1.15]);
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
+      ref={ref}
+      initial={{ opacity: 0, y: 50, scale: 0.95 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-10%" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       onClick={onClick}
       className="group relative cursor-pointer overflow-hidden rounded-sm w-full aspect-[3/4]"
     >
-      <img
+      <motion.img
+        style={{ y, scale }}
         src={collection.image}
         alt={collection.title}
-        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        className="w-full h-full object-cover will-change-transform"
       />
       <div className="absolute inset-0 bg-black/20 transition-opacity duration-300 group-hover:bg-black/40" />
 
       {/* Decorative Frame */}
-      <div className="absolute inset-4 border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-sm pointer-events-none" />
+      <div className="absolute inset-4 border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-sm pointer-events-none z-10" />
 
-      <div className="absolute inset-0 p-8 flex flex-col justify-between">
+      <div className="absolute inset-0 p-8 flex flex-col justify-between z-10">
         <div />
         <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
           <p className="text-white/80 text-sm tracking-widest uppercase mb-2">Collection</p>
@@ -126,49 +128,64 @@ const Gallery = () => {
     offset: ["start end", "end start"]
   });
 
-  const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
+  const [isMobile, setIsMobile] = useState(false);
 
-  const y2 = useSpring(useTransform(scrollYProgress, [0, 1], [0, 150]), springConfig);
-  const y3 = useSpring(useTransform(scrollYProgress, [0, 1], [0, -100]), springConfig);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
-  // Split collections into 3 columns
-  const columns = [[], [], []] as any[][];
-  collections.forEach((collection, i) => {
-    columns[i % 3].push(collection);
+  // Split collections into 2 columns (excluding duplicate/Author if needed)
+  const columns = [[], []] as any[][];
+
+  // Filter out any "Author" titled collection if present in the data
+  const visibleCollections = collections.filter(c => c.title !== "Author");
+
+  visibleCollections.forEach((collection, i) => {
+    columns[i % 2].push(collection);
   });
 
+  // Parallax transforms for 2 columns (Opposing directions)
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -200]); // Column 1 Moves Up
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, 200]);  // Column 2 Moves Down
+
   return (
-    <section id="work" className="py-20 md:py-32 bg-secondary min-h-screen relative scroll-mt-24 overflow-hidden">
+    <section id="work" className="py-20 bg-background relative z-10" ref={containerRef}>
       <div className="container mx-auto px-6">
-        <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row gap-8 md:gap-24 items-start justify-center">
+
+          {/* Column 1 */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            style={{ y: isMobile ? 0 : y1 }}
+            className="flex flex-col gap-12 md:gap-24 w-full md:w-1/2"
           >
-            <div ref={containerRef} className="flex flex-col md:flex-row gap-6 md:gap-8 min-h-screen">
-              {/* Column 1 */}
-              <div className="flex-1 flex flex-col gap-8">
-                {columns[0].map((collection, idx) => (
-                  <GalleryItem key={collection.title} collection={collection} idx={idx} onClick={() => navigate(`/${collection.title.toLowerCase()}`)} />
-                ))}
-              </div>
-
-              {/* Column 2 - Parallax Effect */}
-              <motion.div style={{ y: y2 }} className="flex-1 flex flex-col gap-8 md:mt-12">
-                {columns[1].map((collection, idx) => (
-                  <GalleryItem key={collection.title} collection={collection} idx={idx} onClick={() => navigate(`/${collection.title.toLowerCase()}`)} />
-                ))}
-              </motion.div>
-
-              {/* Column 3 - Parallax Effect */}
-              <motion.div style={{ y: y3 }} className="flex-1 flex flex-col gap-8 md:mt-24">
-                {columns[2].map((collection, idx) => (
-                  <GalleryItem key={collection.title} collection={collection} idx={idx} onClick={() => navigate(`/${collection.title.toLowerCase()}`)} />
-                ))}
-              </motion.div>
-            </div>
+            {columns[0].map((collection, idx) => (
+              <GalleryItem
+                key={idx}
+                collection={collection}
+                idx={idx}
+                onClick={() => navigate(collection.link || `/${collection.title.toLowerCase()}`)}
+              />
+            ))}
           </motion.div>
+
+          {/* Column 2 */}
+          <motion.div
+            style={{ y: isMobile ? 0 : y2 }}
+            className="flex flex-col gap-12 md:gap-24 w-full md:w-1/2 md:mt-32"
+          >
+            {columns[1].map((collection, idx) => (
+              <GalleryItem
+                key={idx}
+                collection={collection}
+                idx={idx}
+                onClick={() => navigate(collection.link || `/${collection.title.toLowerCase()}`)}
+              />
+            ))}
+          </motion.div>
+
         </div>
       </div>
     </section>

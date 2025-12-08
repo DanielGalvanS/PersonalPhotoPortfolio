@@ -38,13 +38,6 @@ const Contact = () => {
                   @paulamitchell
                 </span>
               </a>
-
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group w-fit">
-                <Linkedin className="w-6 h-6 text-accent" />
-                <span className="font-display text-2xl group-hover:text-accent transition-colors">
-                  LinkedIn
-                </span>
-              </a>
             </div>
           </div>
 

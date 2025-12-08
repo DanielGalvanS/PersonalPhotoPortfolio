@@ -30,7 +30,7 @@ const About = () => {
               </p>
 
               <div className="pt-4">
-                <p className="font-display text-2xl font-medium text-foreground">Daniel Galvan</p>
+                <p className="font-display text-2xl font-medium text-foreground">Paula Mitchell</p>
                 <p className="text-sm tracking-widest uppercase text-muted-foreground mt-1">Photographer</p>
               </div>
             </div>

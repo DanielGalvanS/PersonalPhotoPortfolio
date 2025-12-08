@@ -8,11 +8,11 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import PortraitPage from "./pages/PortraitPage";
 import ProductPage from "./pages/ProductPage";
-import AuthorPage from "./pages/AuthorPage";
 import LandscapePage from "./pages/LandscapePage";
 import EditorialPage from "./pages/EditorialPage";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
+import CustomCursor from "./components/ui/CustomCursor";
 
 const queryClient = new QueryClient();
 
@@ -33,11 +33,11 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
+          <CustomCursor />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/retratos" element={<PortraitPage />} />
             <Route path="/producto" element={<ProductPage />} />
-            <Route path="/autor" element={<AuthorPage />} />
             <Route path="/landscapes" element={<LandscapePage />} />
             <Route path="/editorial" element={<EditorialPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
