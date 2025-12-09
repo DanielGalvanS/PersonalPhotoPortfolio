@@ -36,8 +36,8 @@ const App = () => {
           <CustomCursor />
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/retratos" element={<PortraitPage />} />
-            <Route path="/producto" element={<ProductPage />} />
+            <Route path="/portraits" element={<PortraitPage />} />
+            <Route path="/product" element={<ProductPage />} />
             <Route path="/landscapes" element={<LandscapePage />} />
             <Route path="/editorial" element={<EditorialPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

@@ -56,7 +56,9 @@ const Navigation = () => {
               <button
                 key={section}
                 onClick={() => scrollToSection(section)}
-                className={`font-body text-sm tracking-wide transition-colors capitalize ${activeSection === section ? "text-primary font-medium" : "text-muted-foreground hover:text-foreground"
+                className={`font-body text-sm tracking-wide transition-colors capitalize ${activeSection === section
+                  ? "text-primary font-medium"
+                  : "text-muted-foreground hover:text-foreground"
                   }`}
               >
                 {section}
@@ -68,7 +70,7 @@ const Navigation = () => {
 
       {/* Scroll Progress Bar */}
       <motion.div
-        className="absolute bottom-0 left-0 right-0 h-[1px] bg-primary origin-left"
+        className="absolute bottom-0 left-0 right-0 h-[1px] bg-accent-foreground origin-left"
         style={{ scaleX }}
       />
     </nav>

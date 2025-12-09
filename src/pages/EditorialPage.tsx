@@ -27,7 +27,7 @@ const EditorialPage = () => {
               className="inline-flex items-center gap-2 font-body text-sm text-muted-foreground hover:text-foreground transition-colors mb-12"
             >
               <ArrowLeft className="w-4 h-4" />
-              Volver a Selected Work
+              Back to Selected Work
             </Link>
 
             <h1 className="font-display text-5xl md:text-6xl font-semibold mb-8 tracking-tight fade-in-up">
@@ -35,7 +35,7 @@ const EditorialPage = () => {
             </h1>
 
             <p className="font-body text-lg text-muted-foreground mb-20 max-w-2xl">
-              Fotografía editorial para moda, revistas y campañas creativas.
+              Editorial photography for fashion, magazines, and creative campaigns.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

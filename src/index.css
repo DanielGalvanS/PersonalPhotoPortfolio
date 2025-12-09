@@ -89,11 +89,11 @@ All colors MUST be HSL.
 @layer base {
   * {
     @apply border-border;
-    cursor: crosshair;
-    /* Fallback */
   }
 
   /* Hide default cursor everywhere to allow CustomCursor */
+  html,
+  body,
   *,
   *::before,
   *::after {
@@ -102,6 +102,12 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground antialiased overflow-x-hidden;
+  }
+
+  /* Custom Selection Color (Terracotta Accent) */
+  ::selection {
+    background-color: #C07767;
+    color: white;
   }
 
   /* Film Grain Overlay */
@@ -158,23 +164,5 @@ All colors MUST be HSL.
       opacity: 1;
       transform: translateY(0);
     }
-  }
-
-  .gallery-container img {
-    @apply rounded-sm hover:opacity-90 transition-opacity duration-300;
-    cursor: zoom-in;
-  }
-
-  /* Custom Viewfinder Cursor for clickable elements */
-  a,
-  button,
-  .cursor-pointer {
-    cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='10' stroke='black' stroke-width='1.5' stroke-opacity='0.8'/%3E%3Cline x1='12' y1='5' x2='12' y2='19' stroke='black' stroke-width='1' stroke-opacity='0.6'/%3E%3Cline x1='5' y1='12' x2='19' y2='12' stroke='black' stroke-width='1' stroke-opacity='0.6'/%3E%3C/svg%3E") 12 12, pointer;
-  }
-
-  .dark a,
-  .dark button,
-  .dark .cursor-pointer {
-    cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='10' stroke='white' stroke-width='1.5' stroke-opacity='0.8'/%3E%3Cline x1='12' y1='5' x2='12' y2='19' stroke='white' stroke-width='1' stroke-opacity='0.6'/%3E%3Cline x1='5' y1='12' x2='19' y2='12' stroke='white' stroke-width='1' stroke-opacity='0.6'/%3E%3C/svg%3E") 12 12, pointer;
   }
 }

@@ -27,15 +27,15 @@ const PortraitPage = () => {
               className="inline-flex items-center gap-2 font-body text-sm text-muted-foreground hover:text-foreground transition-colors mb-12"
             >
               <ArrowLeft className="w-4 h-4" />
-              Volver a Selected Work
+              Back to Selected Work
             </Link>
 
             <h1 className="font-display text-5xl md:text-6xl font-semibold mb-8 tracking-tight fade-in-up">
-              Retratos
+              Portraits
             </h1>
 
             <p className="font-body text-lg text-muted-foreground mb-20 max-w-2xl">
-              Fotografía de retratos profesionales que capturan la esencia y personalidad de cada individuo.
+              Professional portrait photography capturing the essence and personality of each individual.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

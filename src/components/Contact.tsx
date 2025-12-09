@@ -1,14 +1,33 @@
 import { Mail, Instagram, Linkedin, Send } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
     // Add submission logic here
   };
+
+  const handleTextareaInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const target = e.target;
+    setFormData({ ...formData, message: target.value });
+
+    // Auto-resize logic
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  };
+
+  // Reset height if message is cleared programmatically
+  useEffect(() => {
+    if (formData.message === "" && textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+    }
+  }, [formData.message]);
 
   return (
     <section id="contact" className="py-32 bg-background">
@@ -68,16 +87,17 @@ const Contact = () => {
               <label htmlFor="message" className="text-sm font-medium tracking-wide text-muted-foreground uppercase">Message</label>
               <textarea
                 id="message"
-                rows={4}
+                ref={textareaRef}
+                rows={1}
                 value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full bg-transparent border-b border-border py-4 text-xl focus:border-accent focus:outline-none transition-colors resize-none"
+                onChange={handleTextareaInput}
+                className="w-full bg-transparent border-b border-border py-4 text-xl focus:border-accent focus:outline-none transition-colors resize-none overflow-hidden min-h-[60px]"
                 placeholder="Tell me about your project..."
               />
             </div>
             <button
               type="submit"
-              className="inline-flex items-center gap-3 bg-primary text-primary-foreground px-8 py-4 text-sm tracking-widest uppercase hover:bg-accent hover:text-accent-foreground transition-all duration-300"
+              className="inline-flex items-center gap-3 bg-primary text-primary-foreground px-8 py-4 text-sm tracking-widest uppercase hover:bg-primary/90 transition-all duration-300"
             >
               Send Message
               <Send className="w-4 h-4" />

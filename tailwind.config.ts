@@ -40,8 +40,8 @@ export default {
           foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
-          DEFAULT: "#d5bdaf",
-          foreground: "#e0afa0",
+          DEFAULT: "#E8D8D0", // Soft Clay
+          foreground: "#584b3e", // Terracotta / Warm Earth
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",

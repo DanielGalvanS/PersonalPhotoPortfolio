@@ -6,9 +6,14 @@ import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 
 import GalleryImage from "@/components/ui/GalleryImage";
-import product1 from "@/assets/product-1.jpg";
+import productoB from "@/assets/Producto_b.jpg";
+import productoM from "@/assets/Producto_m.jpg";
+import productoM2 from "@/assets/Producto_m2.jpg";
+import productoN from "@/assets/Producto_n.jpg";
+import productoP from "@/assets/Producto_p.jpg";
+import productoP2 from "@/assets/Producto_p2.jpg";
 
-const images = [product1];
+const images = [productoB, productoM, productoM2, productoN, productoP, productoP2];
 const slides = images.map((src) => ({ src }));
 
 const ProductPage = () => {
@@ -26,15 +31,15 @@ const ProductPage = () => {
               className="inline-flex items-center gap-2 font-body text-sm text-muted-foreground hover:text-foreground transition-colors mb-12"
             >
               <ArrowLeft className="w-4 h-4" />
-              Volver a Selected Work
+              Back to Selected Work
             </Link>
 
             <h1 className="font-display text-5xl md:text-6xl font-semibold mb-8 tracking-tight fade-in-up">
-              Foto de Producto
+              Product Photography
             </h1>
 
             <p className="font-body text-lg text-muted-foreground mb-20 max-w-2xl">
-              Fotografía profesional de productos que destaca la calidad y detalles de cada artículo.
+              Professional product photography that highlights the quality and details of every item.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -46,7 +51,7 @@ const ProductPage = () => {
                 >
                   <GalleryImage
                     src={image}
-                    alt={`Producto ${i + 1}`}
+                    alt={`Product ${i + 1}`}
                     category="Product Series"
                     title={`Item ${i + 1}`}
                     index={i}
