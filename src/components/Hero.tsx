@@ -75,7 +75,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.5 }}
             className="font-display text-6xl md:text-8xl font-bold mb-6 tracking-tight"
           >
-            Visual Stories
+            Paula Mitchell
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
