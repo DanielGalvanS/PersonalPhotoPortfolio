@@ -76,7 +76,7 @@ const PortraitPage = () => {
             </div>
 
             {/* DESKTOP (>= md): 3 Columns - Distributed horizontally (0->Col1, 1->Col2, 2->Col3) */}
-            <div className={`hidden md:grid md:grid-cols-3 gap-8 items-start transition-opacity duration-500 ease-out ${isGalleryReady ? 'opacity-100' : 'opacity-0'}`}>
+            <div className={`hidden md:grid md:grid-cols-3 gap-8 items-start ${isGalleryReady ? 'opacity-100' : 'opacity-0'}`}>
               {[0, 1, 2].map((colIndex) => (
                 <div key={colIndex} className="flex flex-col gap-8">
                   {images
@@ -85,8 +85,10 @@ const PortraitPage = () => {
                     .map((item) => (
                       <div
                         key={item.originalIndex}
-                        className={`${isGalleryReady && item.originalIndex < 3 ? 'fade-in-up' : ''} ${isGalleryReady && item.originalIndex >= 3 ? 'opacity-100' : ''} ${!isGalleryReady ? 'opacity-0' : ''}`}
-                        style={{ animationDelay: item.originalIndex < 3 ? `${item.originalIndex * 0.1}s` : '0s' }}
+                        // ANIMATION REMOVED: User requested all images behave like bottom ones (Static).
+                        // Now everything is opacity-100 instantly when ready.
+                        className={`break-inside-avoid ${isGalleryReady ? 'opacity-100' : 'opacity-0'}`}
+                        style={{ animationDelay: '0s' }}
                       >
                         <GalleryImage
                           src={item.src}

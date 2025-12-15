@@ -14,12 +14,15 @@ const slides = images.map((src) => ({ src }));
 
 const EditorialPage = () => {
   const [index, setIndex] = useState(-1);
+  const [imagesLoaded, setImagesLoaded] = useState(0);
+  const totalImages = images.length;
+  const isGalleryReady = imagesLoaded === totalImages;
 
   return (
     <div className="min-h-screen">
       <Navigation />
 
-      <section className="py-32 bg-background">
+      <section className="py-32 bg-background relative min-h-screen">
         <div className="container mx-auto px-6">
           <div className="max-w-7xl mx-auto">
             <Link
@@ -38,12 +41,22 @@ const EditorialPage = () => {
               Editorial photography for fashion, magazines, and creative campaigns.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* PRELOADER OVERLAY */}
+            {!isGalleryReady && (
+              <div className="fixed inset-0 z-50 bg-background flex flex-col items-center justify-center">
+                <div className="font-serif text-xl tracking-widest animate-pulse text-muted-foreground">
+                  LOADING GALLERY ({Math.min(100, Math.round((imagesLoaded / totalImages) * 100))}%)
+                </div>
+              </div>
+            )}
+
+            {/* GALLERY GRID - Static Instant Reveal */}
+            <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 ${isGalleryReady ? 'opacity-100' : 'opacity-0'}`}>
               {images.map((image, i) => (
                 <div
                   key={i}
-                  className="fade-in"
-                  style={{ animationDelay: `${i * 0.1}s` }}
+                  className={`break-inside-avoid ${isGalleryReady ? 'opacity-100' : 'opacity-0'}`}
+                  style={{ animationDelay: '0s' }}
                 >
                   <GalleryImage
                     src={image}
@@ -52,6 +65,7 @@ const EditorialPage = () => {
                     title={`Capture ${i + 1}`}
                     index={i}
                     onClick={() => setIndex(i)}
+                    onImageLoad={() => setImagesLoaded(prev => Math.min(prev + 1, totalImages))}
                   />
                 </div>
               ))}
