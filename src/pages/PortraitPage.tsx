@@ -85,8 +85,8 @@ const PortraitPage = () => {
                     .map((item) => (
                       <div
                         key={item.originalIndex}
-                        className={`${isGalleryReady && item.originalIndex < 6 ? 'fade-in-up' : ''} ${isGalleryReady && item.originalIndex >= 6 ? 'opacity-100' : ''} ${!isGalleryReady ? 'opacity-0' : ''}`}
-                        style={{ animationDelay: item.originalIndex < 6 ? `${item.originalIndex * 0.1}s` : '0s' }}
+                        className={`${isGalleryReady && item.originalIndex < 3 ? 'fade-in-up' : ''} ${isGalleryReady && item.originalIndex >= 3 ? 'opacity-100' : ''} ${!isGalleryReady ? 'opacity-0' : ''}`}
+                        style={{ animationDelay: item.originalIndex < 3 ? `${item.originalIndex * 0.1}s` : '0s' }}
                       >
                         <GalleryImage
                           src={item.src}
