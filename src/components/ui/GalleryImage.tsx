@@ -34,13 +34,14 @@ const GalleryImage = ({ src, alt, category, title, index, onClick }: GalleryImag
             {/* 
                 Text Content - The "Card" underneath
                 Matches Cassia style: White background, Black Serif Text.
+                Updated: Left aligned to match reference "FREELANCE".
             */}
-            <div className="absolute bottom-0 left-0 w-full h-[15%] z-0 flex flex-col justify-center px-6 bg-white">
-                <div className="flex flex-col gap-1 opacity-0 translate-y-2 transition-all duration-300 delay-100 ease-out group-hover:opacity-100 group-hover:translate-y-0">
+            <div className="absolute bottom-0 left-0 w-full h-[15%] z-0 flex flex-col justify-center items-start px-6 bg-white">
+                <div className="flex flex-col items-start gap-1 opacity-0 translate-y-2 transition-all duration-300 delay-100 ease-out group-hover:opacity-100 group-hover:translate-y-0">
                     <p className="text-[10px] tracking-[0.2em] uppercase text-gray-500 font-medium font-body">
                         {category}
                     </p>
-                    <h3 className="font-serif text-2xl text-black tracking-tight truncate">
+                    <h3 className="font-serif text-xl text-black tracking-tight font-normal">
                         {title}
                     </h3>
                 </div>
