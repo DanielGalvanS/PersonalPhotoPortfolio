@@ -6,10 +6,9 @@ import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 
 import GalleryImage from "@/components/ui/GalleryImage";
-import editorial1 from "@/assets/editorial-1.jpg";
-import gallery5 from "@/assets/gallery-5.jpg";
-
-const images = [editorial1, gallery5];
+// Dynamically import all images from the Editorial folder using Vite's glob import
+const modules = import.meta.glob('@/assets/Editorial/*.jpg', { eager: true });
+const images = Object.values(modules).map((mod: any) => mod.default);
 const slides = images.map((src) => ({ src }));
 
 const EditorialPage = () => {
