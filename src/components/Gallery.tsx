@@ -9,7 +9,7 @@ import "yet-another-react-lightbox/styles.css";
 
 // Import images
 import gallery1 from "@/assets/gallery-1.jpg";
-import productoP2 from "@/assets/Producto_p2.jpg";
+import productoM2 from "@/assets/Producto/Producto_m2.jpg";
 import landscape1 from "@/assets/landscape-1.jpg";
 import editorial1 from "@/assets/editorial-1.jpg";
 
@@ -25,7 +25,7 @@ const collections = [
   },
   {
     title: "Product",
-    image: productoP2,
+    image: productoM2,
     count: 2,
     className: "md:col-span-1 md:row-span-1",
     description: "High-impact commercial photography designed to highlight the quality and unique details of each object. Minimalist and clean approach.",

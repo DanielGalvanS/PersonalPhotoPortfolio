@@ -6,10 +6,9 @@ import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 
 import GalleryImage from "@/components/ui/GalleryImage";
-import portrait1 from "@/assets/portrait-1.jpg";
-import gallery2 from "@/assets/gallery-2.jpg";
-
-const images = [portrait1, gallery2];
+// Dynamically import all images from the Retrato folder using Vite's glob import
+const modules = import.meta.glob('@/assets/Retrato/*.jpg', { eager: true });
+const images = Object.values(modules).map((mod: any) => mod.default);
 const slides = images.map((src) => ({ src }));
 
 const PortraitPage = () => {
@@ -38,12 +37,12 @@ const PortraitPage = () => {
               Professional portrait photography capturing the essence and personality of each individual.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="columns-1 md:columns-3 gap-8 space-y-8">
               {images.map((image, i) => (
                 <div
                   key={i}
-                  className="fade-in"
-                  style={{ animationDelay: `${i * 0.1}s` }}
+                  className="break-inside-avoid fade-in"
+                  style={{ animationDelay: `${i * 0.05}s` }} // Faster stagger
                 >
                   <GalleryImage
                     src={image}

@@ -6,14 +6,9 @@ import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 
 import GalleryImage from "@/components/ui/GalleryImage";
-import productoB from "@/assets/Producto_b.jpg";
-import productoM from "@/assets/Producto_m.jpg";
-import productoM2 from "@/assets/Producto_m2.jpg";
-import productoN from "@/assets/Producto_n.jpg";
-import productoP from "@/assets/Producto_p.jpg";
-import productoP2 from "@/assets/Producto_p2.jpg";
-
-const images = [productoB, productoM, productoM2, productoN, productoP, productoP2];
+// Dynamically import all images from the Producto folder using Vite's glob import
+const modules = import.meta.glob('@/assets/Producto/*.jpg', { eager: true });
+const images = Object.values(modules).map((mod: any) => mod.default);
 const slides = images.map((src) => ({ src }));
 
 const ProductPage = () => {
