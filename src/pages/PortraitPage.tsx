@@ -13,12 +13,15 @@ const slides = images.map((src) => ({ src }));
 
 const PortraitPage = () => {
   const [index, setIndex] = useState(-1);
+  const [imagesLoaded, setImagesLoaded] = useState(0);
+  const totalImages = images.length;
+  const isGalleryReady = imagesLoaded === totalImages;
 
   return (
     <div className="min-h-screen">
       <Navigation />
 
-      <section className="py-32 bg-background">
+      <section className="py-32 bg-background relative min-h-screen">
         <div className="container mx-auto px-6">
           <div className="max-w-7xl mx-auto">
             <Link
@@ -37,12 +40,27 @@ const PortraitPage = () => {
               Professional portrait photography capturing the essence and personality of each individual.
             </p>
 
-            <div className="columns-1 md:columns-3 gap-8 space-y-8">
+            {/* PRELOADER OVERLAY - Visible until all images are loaded */}
+            {!isGalleryReady && (
+              <div className="fixed inset-0 z-50 bg-background flex flex-col items-center justify-center">
+                <div className="font-serif text-xl tracking-widest animate-pulse text-muted-foreground">
+                  LOADING GALLERY ({Math.min(100, Math.round((imagesLoaded / totalImages) * 100))}%)
+                </div>
+              </div>
+            )}
+
+            {/* 
+                GALLERY GRID 
+                Refactored to Manual Masonry to match Animation Order (Horizontal Flow) with Layout.
+            */}
+
+            {/* MOBILE (< md): Single Column - Standard sequential order */}
+            <div className={`md:hidden flex flex-col gap-8 transition-opacity duration-500 ease-out ${isGalleryReady ? 'opacity-100' : 'opacity-0'}`}>
               {images.map((image, i) => (
                 <div
                   key={i}
-                  className="break-inside-avoid fade-in"
-                  style={{ animationDelay: `${i * 0.05}s` }} // Faster stagger
+                  className={`break-inside-avoid ${isGalleryReady && i < 3 ? 'fade-in-up' : ''} ${isGalleryReady && i >= 3 ? 'opacity-100' : ''} ${!isGalleryReady ? 'opacity-0' : ''}`}
+                  style={{ animationDelay: i < 3 ? `${i * 0.1}s` : '0s' }}
                 >
                   <GalleryImage
                     src={image}
@@ -51,7 +69,36 @@ const PortraitPage = () => {
                     title={`Capture ${i + 1}`}
                     index={i}
                     onClick={() => setIndex(i)}
+                    onImageLoad={() => setImagesLoaded(prev => Math.min(prev + 1, totalImages))}
                   />
+                </div>
+              ))}
+            </div>
+
+            {/* DESKTOP (>= md): 3 Columns - Distributed horizontally (0->Col1, 1->Col2, 2->Col3) */}
+            <div className={`hidden md:grid md:grid-cols-3 gap-8 items-start transition-opacity duration-500 ease-out ${isGalleryReady ? 'opacity-100' : 'opacity-0'}`}>
+              {[0, 1, 2].map((colIndex) => (
+                <div key={colIndex} className="flex flex-col gap-8">
+                  {images
+                    .map((image, i) => ({ src: image, originalIndex: i })) // Preserve original index for animation/lightbox
+                    .filter((_, i) => i % 3 === colIndex)
+                    .map((item) => (
+                      <div
+                        key={item.originalIndex}
+                        className={`${isGalleryReady && item.originalIndex < 6 ? 'fade-in-up' : ''} ${isGalleryReady && item.originalIndex >= 6 ? 'opacity-100' : ''} ${!isGalleryReady ? 'opacity-0' : ''}`}
+                        style={{ animationDelay: item.originalIndex < 6 ? `${item.originalIndex * 0.1}s` : '0s' }}
+                      >
+                        <GalleryImage
+                          src={item.src}
+                          alt={`Portrait ${item.originalIndex + 1}`}
+                          category="Portrait Series"
+                          title={`Capture ${item.originalIndex + 1}`}
+                          index={item.originalIndex}
+                          onClick={() => setIndex(item.originalIndex)}
+                          onImageLoad={() => setImagesLoaded(prev => Math.min(prev + 1, totalImages))}
+                        />
+                      </div>
+                    ))}
                 </div>
               ))}
             </div>
