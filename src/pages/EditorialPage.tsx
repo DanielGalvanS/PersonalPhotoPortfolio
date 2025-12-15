@@ -50,8 +50,13 @@ const EditorialPage = () => {
               </div>
             )}
 
-            {/* GALLERY GRID - Static Instant Reveal */}
-            <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 ${isGalleryReady ? 'opacity-100' : 'opacity-0'}`}>
+            {/* 
+                GALLERY GRID 
+                Refactored to Manual Masonry (3 Columns) to match Portraits Page.
+            */}
+
+            {/* MOBILE (< md): Single Column */}
+            <div className={`md:hidden flex flex-col gap-8 transition-opacity duration-500 ease-out ${isGalleryReady ? 'opacity-100' : 'opacity-0'}`}>
               {images.map((image, i) => (
                 <div
                   key={i}
@@ -67,6 +72,34 @@ const EditorialPage = () => {
                     onClick={() => setIndex(i)}
                     onImageLoad={() => setImagesLoaded(prev => Math.min(prev + 1, totalImages))}
                   />
+                </div>
+              ))}
+            </div>
+
+            {/* DESKTOP (>= md): 3 Columns - Distributed horizontally (0->Col1, 1->Col2, 2->Col3) */}
+            <div className={`hidden md:grid md:grid-cols-3 gap-8 items-start ${isGalleryReady ? 'opacity-100' : 'opacity-0'}`}>
+              {[0, 1, 2].map((colIndex) => (
+                <div key={colIndex} className="flex flex-col gap-8">
+                  {images
+                    .map((image, i) => ({ src: image, originalIndex: i }))
+                    .filter((_, i) => i % 3 === colIndex)
+                    .map((item) => (
+                      <div
+                        key={item.originalIndex}
+                        className={`break-inside-avoid ${isGalleryReady ? 'opacity-100' : 'opacity-0'}`}
+                        style={{ animationDelay: '0s' }}
+                      >
+                        <GalleryImage
+                          src={item.src}
+                          alt={`Editorial ${item.originalIndex + 1}`}
+                          category="Editorial Series"
+                          title={`Capture ${item.originalIndex + 1}`}
+                          index={item.originalIndex}
+                          onClick={() => setIndex(item.originalIndex)}
+                          onImageLoad={() => setImagesLoaded(prev => Math.min(prev + 1, totalImages))}
+                        />
+                      </div>
+                    ))}
                 </div>
               ))}
             </div>
