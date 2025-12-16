@@ -22,9 +22,7 @@ const queryClient = new QueryClient();
 
 // Simple loading fallback
 const PageLoader = () => (
-  <div className="h-screen w-full flex items-center justify-center bg-black">
-    <div className="animate-pulse text-white/50 font-display tracking-widest uppercase text-sm">Loading...</div>
-  </div>
+  <div className="h-screen w-full bg-background" />
 );
 
 const App = () => {

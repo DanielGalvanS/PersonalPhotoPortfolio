@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import { m } from "framer-motion";
 
 import GalleryImage from "@/components/ui/GalleryImage";
 // Dynamically import all images from the Producto folder using Vite's glob import
@@ -15,7 +16,7 @@ const ProductPage = () => {
   const [index, setIndex] = useState(-1);
   const [imagesLoaded, setImagesLoaded] = useState(0);
   const totalImages = images.length;
-  const isGalleryReady = imagesLoaded === totalImages;
+  // const isGalleryReady = imagesLoaded === totalImages;
 
   return (
     <div className="min-h-screen">
@@ -32,13 +33,23 @@ const ProductPage = () => {
               Back to Selected Work
             </Link>
 
-            <h1 className="font-display text-5xl md:text-6xl font-semibold mb-8 tracking-tight fade-in-up">
+            <m.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="font-display text-5xl md:text-6xl font-semibold mb-8 tracking-tight"
+            >
               Product Photography
-            </h1>
+            </m.h1>
 
-            <p className="font-body text-lg text-muted-foreground mb-20 max-w-2xl">
+            <m.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+              className="font-body text-lg text-muted-foreground mb-20 max-w-2xl"
+            >
               Professional product photography that highlights the quality and details of every item.
-            </p>
+            </m.p>
 
             {/* 
                 GALLERY GRID 
@@ -48,9 +59,13 @@ const ProductPage = () => {
             {/* MOBILE (< md): Single Column */}
             <div className="md:hidden flex flex-col gap-8">
               {images.map((image, i) => (
-                <div
+                <m.div
                   key={i}
                   className="break-inside-avoid"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: i < 4 ? i * 0.1 : 0 }}
                 >
                   <GalleryImage
                     src={image}
@@ -61,7 +76,7 @@ const ProductPage = () => {
                     onClick={() => setIndex(i)}
                     onImageLoad={() => setImagesLoaded(prev => Math.min(prev + 1, totalImages))}
                   />
-                </div>
+                </m.div>
               ))}
             </div>
 
@@ -73,9 +88,12 @@ const ProductPage = () => {
                     .map((image, i) => ({ src: image, originalIndex: i }))
                     .filter((_, i) => i % 3 === colIndex)
                     .map((item) => (
-                      <div
+                      <m.div
                         key={item.originalIndex}
                         className="break-inside-avoid"
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7, delay: item.originalIndex * 0.05, ease: [0.21, 0.47, 0.32, 0.98] }}
                       >
                         <GalleryImage
                           src={item.src}
@@ -86,7 +104,7 @@ const ProductPage = () => {
                           onClick={() => setIndex(item.originalIndex)}
                           onImageLoad={() => setImagesLoaded(prev => Math.min(prev + 1, totalImages))}
                         />
-                      </div>
+                      </m.div>
                     ))}
                 </div>
               ))}
