@@ -31,7 +31,7 @@ const Hero = () => {
   };
 
   return (
-    <section id="hero" className="relative h-screen w-full overflow-hidden">
+    <section id="hero" className="relative h-[100dvh] w-full overflow-hidden">
       {/* Background Slideshow */}
       <div className="absolute inset-0">
         <motion.div style={{ y }} className="w-full h-full relative">

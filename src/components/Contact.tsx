@@ -51,10 +51,10 @@ const Contact = () => {
                 </span>
               </a>
 
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group w-fit">
+              <a href="https://instagram.com/paumitchellv" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group w-fit">
                 <Instagram className="w-6 h-6 text-accent" />
                 <span className="font-display text-2xl group-hover:text-accent transition-colors">
-                  @paulamitchell
+                  @paumitchellv
                 </span>
               </a>
             </div>

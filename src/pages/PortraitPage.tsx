@@ -55,7 +55,7 @@ const PortraitPage = () => {
             */}
 
             {/* MOBILE (< md): Single Column - Standard sequential order */}
-            <div className={`md:hidden flex flex-col gap-8 transition-opacity duration-500 ease-out ${isGalleryReady ? 'opacity-100' : 'opacity-0'}`}>
+            <div className={`md:hidden flex flex-col gap-8 ${isGalleryReady ? 'opacity-100' : 'opacity-0'}`}>
               {images.map((image, i) => (
                 <div
                   key={i}
