@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <style>
+    /* Smart Color Adaptation: Black on Light, White on Dark */
+    path { stroke: #000000; }
+    @media (prefers-color-scheme: dark) {
+      path { stroke: #ffffff; }
+    }
+  </style>
+  
+  <g stroke-width="6" stroke-linecap="square" fill="none">
+    <!-- Adjusted coordinates for 100x100 viewbox transparency -->
+    <!-- Top Left -->
+    <path d="M30,20 L20,20 L20,30" />
+    <!-- Top Right -->
+    <path d="M70,20 L80,20 L80,30" />
+    <!-- Bottom Right -->
+    <path d="M80,70 L80,80 L70,80" />
+    <!-- Bottom Left -->
+    <path d="M30,80 L20,80 L20,70" />
+  </g>
+</svg>

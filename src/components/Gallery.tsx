@@ -1,9 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import PhotoAlbum from "react-photo-album";
-import Lightbox from "yet-another-react-lightbox";
-import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
-import { ArrowRight, ArrowLeft } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import "react-photo-album/styles.css";
 import "yet-another-react-lightbox/styles.css";
 
