@@ -40,27 +40,17 @@ const PortraitPage = () => {
               Professional portrait photography capturing the essence and personality of each individual.
             </p>
 
-            {/* PRELOADER OVERLAY - Visible until all images are loaded */}
-            {!isGalleryReady && (
-              <div className="fixed inset-0 z-50 bg-background flex flex-col items-center justify-center">
-                <div className="font-serif text-xl tracking-widest animate-pulse text-muted-foreground">
-                  LOADING GALLERY ({Math.min(100, Math.round((imagesLoaded / totalImages) * 100))}%)
-                </div>
-              </div>
-            )}
-
             {/* 
                 GALLERY GRID 
                 Refactored to Manual Masonry to match Animation Order (Horizontal Flow) with Layout.
             */}
 
             {/* MOBILE (< md): Single Column - Standard sequential order */}
-            <div className={`md:hidden flex flex-col gap-8 ${isGalleryReady ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="md:hidden flex flex-col gap-8">
               {images.map((image, i) => (
                 <div
                   key={i}
-                  className={`break-inside-avoid ${isGalleryReady && i < 3 ? 'fade-in-up' : ''} ${isGalleryReady && i >= 3 ? 'opacity-100' : ''} ${!isGalleryReady ? 'opacity-0' : ''}`}
-                  style={{ animationDelay: i < 3 ? `${i * 0.1}s` : '0s' }}
+                  className="break-inside-avoid"
                 >
                   <GalleryImage
                     src={image}
@@ -76,7 +66,7 @@ const PortraitPage = () => {
             </div>
 
             {/* DESKTOP (>= md): 3 Columns - Distributed horizontally (0->Col1, 1->Col2, 2->Col3) */}
-            <div className={`hidden md:grid md:grid-cols-3 gap-8 items-start ${isGalleryReady ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="hidden md:grid md:grid-cols-3 gap-8 items-start">
               {[0, 1, 2].map((colIndex) => (
                 <div key={colIndex} className="flex flex-col gap-8">
                   {images
@@ -87,8 +77,7 @@ const PortraitPage = () => {
                         key={item.originalIndex}
                         // ANIMATION REMOVED: User requested all images behave like bottom ones (Static).
                         // Now everything is opacity-100 instantly when ready.
-                        className={`break-inside-avoid ${isGalleryReady ? 'opacity-100' : 'opacity-0'}`}
-                        style={{ animationDelay: '0s' }}
+                        className="break-inside-avoid"
                       >
                         <GalleryImage
                           src={item.src}

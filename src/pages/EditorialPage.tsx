@@ -40,27 +40,17 @@ const EditorialPage = () => {
               Editorial photography for fashion, magazines, and creative campaigns.
             </p>
 
-            {/* PRELOADER OVERLAY */}
-            {!isGalleryReady && (
-              <div className="fixed inset-0 z-50 bg-background flex flex-col items-center justify-center">
-                <div className="font-serif text-xl tracking-widest animate-pulse text-muted-foreground">
-                  LOADING GALLERY ({Math.min(100, Math.round((imagesLoaded / totalImages) * 100))}%)
-                </div>
-              </div>
-            )}
-
             {/* 
                 GALLERY GRID 
                 Refactored to Manual Masonry (3 Columns) to match Portraits Page.
             */}
 
             {/* MOBILE (< md): Single Column */}
-            <div className={`md:hidden flex flex-col gap-8 ${isGalleryReady ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="md:hidden flex flex-col gap-8">
               {images.map((image, i) => (
                 <div
                   key={i}
-                  className={`break-inside-avoid ${isGalleryReady ? 'opacity-100' : 'opacity-0'}`}
-                  style={{ animationDelay: '0s' }}
+                  className="break-inside-avoid"
                 >
                   <GalleryImage
                     src={image}
@@ -77,7 +67,7 @@ const EditorialPage = () => {
             </div>
 
             {/* DESKTOP (>= md): 3 Columns - Distributed horizontally (0->Col1, 1->Col2, 2->Col3) */}
-            <div className={`hidden md:grid md:grid-cols-3 gap-8 items-start ${isGalleryReady ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="hidden md:grid md:grid-cols-3 gap-8 items-start">
               {[0, 1, 2].map((colIndex) => (
                 <div key={colIndex} className="flex flex-col gap-8">
                   {images
@@ -86,8 +76,7 @@ const EditorialPage = () => {
                     .map((item) => (
                       <div
                         key={item.originalIndex}
-                        className={`break-inside-avoid ${isGalleryReady ? 'opacity-100' : 'opacity-0'}`}
-                        style={{ animationDelay: '0s' }}
+                        className="break-inside-avoid"
                       >
                         <GalleryImage
                           src={item.src}
@@ -113,8 +102,8 @@ const EditorialPage = () => {
             />
           </div>
         </div>
-      </section>
-    </div>
+      </section >
+    </div >
   );
 };
 
