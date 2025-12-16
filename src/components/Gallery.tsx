@@ -8,15 +8,15 @@ import "react-photo-album/styles.css";
 import "yet-another-react-lightbox/styles.css";
 
 // Import images
-import gallery1 from "@/assets/gallery-1.jpg";
+import retrato from "@/assets/Retrato/IMG_9558.jpg";
 import productoM2 from "@/assets/Producto/Producto_m2.jpg";
 import landscape1 from "@/assets/landscape-1.jpg";
-import editorial1 from "@/assets/editorial-1.jpg";
+import editorial from "@/assets/Editorial/20251209-IMG_9718-min.jpg";
 
 const collections = [
   {
     title: "Portraits",
-    image: gallery1,
+    image: retrato,
     count: 2,
     className: "md:col-span-2 md:row-span-2",
     description: "An exploration of human identity through natural light and authentic expressions. This collection seeks to capture not just the face, but the story behind the gaze.",
@@ -43,7 +43,7 @@ const collections = [
   },
   {
     title: "Editorial",
-    image: editorial1,
+    image: editorial,
     count: 2,
     className: "md:col-span-1 md:row-span-2",
     description: "Visual narratives for publications and fashion. Cinematic style and careful composition to tell silent stories.",
@@ -129,13 +129,10 @@ const Gallery = () => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Split collections into 2 columns (excluding duplicate/Author if needed)
+  // Split collections into 2 columns 
   const columns = [[], []] as any[][];
 
-  // Filter out any "Author" titled collection if present in the data
-  const visibleCollections = collections.filter(c => c.title !== "Author");
-
-  visibleCollections.forEach((collection, i) => {
+  collections.forEach((collection, i) => {
     columns[i % 2].push(collection);
   });
 
@@ -145,7 +142,7 @@ const Gallery = () => {
 
   return (
     <section id="work" className="py-20 bg-background relative z-10" ref={containerRef}>
-      <div className="container mx-auto px-6">
+      <div className="container max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row gap-8 md:gap-24 items-start justify-center">
 
           {/* Column 1 */}
