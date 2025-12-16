@@ -70,6 +70,7 @@ const EditorialPage = () => {
                     index={i}
                     onClick={() => setIndex(i)}
                     onImageLoad={() => setImagesLoaded(prev => Math.min(prev + 1, totalImages))}
+                    priority={i < 4} // Eager load first 4 images
                   />
                 </div>
               ))}
@@ -96,6 +97,7 @@ const EditorialPage = () => {
                           index={item.originalIndex}
                           onClick={() => setIndex(item.originalIndex)}
                           onImageLoad={() => setImagesLoaded(prev => Math.min(prev + 1, totalImages))}
+                          priority={item.originalIndex < 6} // Eager load first 6 (top of desktop view)
                         />
                       </div>
                     ))}

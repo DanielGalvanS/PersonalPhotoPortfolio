@@ -9,9 +9,10 @@ interface GalleryImageProps {
     index: number;
     onClick: () => void;
     onImageLoad?: () => void; // New prop for global preloader
+    priority?: boolean; // New prop for LCP optimization
 }
 
-const GalleryImage = ({ src, alt, category, title, index, onClick, onImageLoad }: GalleryImageProps) => {
+const GalleryImage = ({ src, alt, category, title, index, onClick, onImageLoad, priority = false }: GalleryImageProps) => {
     const imgRef = useRef<HTMLImageElement>(null);
     const [isLoaded, setIsLoaded] = useState(false);
 
@@ -48,8 +49,9 @@ const GalleryImage = ({ src, alt, category, title, index, onClick, onImageLoad }
                     ref={imgRef}
                     src={src}
                     alt={alt}
-                    loading="eager" // User request: 'Already there when I scroll'.
-                    decoding="sync" // Changed from 'async' to 'sync'. Forces paint BEFORE display. Prevents "appearing" on scroll.
+                    loading={priority ? "eager" : "lazy"}
+                    decoding={priority ? "sync" : "async"}
+                    fetchPriority={priority ? "high" : "auto"}
                     className={`h-auto w-full object-cover transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.02] group-hover:translate-y-[15%] ${isLoaded ? 'opacity-100 translate-y-0 scale-100 blur-0' : 'opacity-0 translate-y-4 scale-[0.98] blur-sm'}`}
                     onLoad={handleLoad}
                 />
