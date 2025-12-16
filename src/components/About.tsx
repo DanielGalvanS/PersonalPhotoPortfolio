@@ -1,6 +1,6 @@
 const About = () => {
   return (
-    <section id="about" className="py-32 bg-background">
+    <section id="about" className="py-32 bg-background relative z-10">
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="flex flex-col md:grid md:grid-cols-2 gap-12 items-center">
           <div className="w-full relative aspect-[3/4] overflow-hidden rounded-sm fade-in-up" style={{ animationDelay: '0.1s' }}>

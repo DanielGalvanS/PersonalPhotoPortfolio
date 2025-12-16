@@ -104,6 +104,10 @@ All colors MUST be HSL.
     @apply bg-background text-foreground antialiased overflow-x-hidden;
   }
 
+  html {
+    background-color: black;
+  }
+
   /* Custom Selection Color (Terracotta Accent) */
   ::selection {
     background-color: #C07767;

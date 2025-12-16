@@ -7,7 +7,6 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
     // Add submission logic here
   };
 
@@ -30,7 +29,7 @@ const Contact = () => {
   }, [formData.message]);
 
   return (
-    <section id="contact" className="py-32 bg-background">
+    <section id="contact" className="py-32 bg-background relative z-10">
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
           <div className="fade-in-up">

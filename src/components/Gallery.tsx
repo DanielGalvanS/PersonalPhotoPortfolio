@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { ArrowRight } from "lucide-react";
 import "react-photo-album/styles.css";
 import "yet-another-react-lightbox/styles.css";
@@ -118,14 +119,7 @@ const Gallery = () => {
     offset: ["start end", "end start"]
   });
 
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  const isMobile = useIsMobile();
 
   // Split collections into 2 columns 
   const columns = [[], []] as any[][];
