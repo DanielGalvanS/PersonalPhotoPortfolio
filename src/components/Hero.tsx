@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { m, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import heroImage from "@/assets/hero-image.jpg";
 import portrait1 from "@/assets/portrait-1.jpg";
@@ -53,9 +53,9 @@ const Hero = () => {
         className="fixed top-0 left-0 z-0 w-full md:absolute md:inset-0"
         style={{ height: heroHeight }}
       >
-        <motion.div style={{ y: isMobile ? 0 : y, opacity }} className="w-full h-full relative">
+        <m.div style={{ y: isMobile ? 0 : y, opacity }} className="w-full h-full relative">
           <AnimatePresence mode="popLayout">
-            <motion.img
+            <m.img
               key={currentSlide}
               src={slides[currentSlide]}
               initial={{ opacity: 0 }}
@@ -67,7 +67,7 @@ const Hero = () => {
             />
           </AnimatePresence>
           <div className="absolute inset-0 bg-black/30 w-full h-full z-10 pointer-events-none" />
-        </motion.div>
+        </m.div>
       </div>
 
       {/* Navigation Zones (Invisible layers on top) */}
@@ -75,37 +75,39 @@ const Hero = () => {
         className="absolute inset-y-0 left-0 w-1/2 z-1 cursor-none touch-pan-y"
         data-cursor="arrow-left"
         onClick={handlePrev}
+        aria-label="Previous slide"
       />
       <div
         className="absolute inset-y-0 right-0 w-1/2 z-1 cursor-none touch-pan-y"
         data-cursor="arrow-right"
         onClick={handleNext}
+        aria-label="Next slide"
       />
 
       {/* Content */}
-      <motion.div
+      <m.div
         style={{ y: isMobile ? 0 : textY }}
         className="relative h-full flex items-center justify-center z-2 pointer-events-none"
       >
         <div className="text-center text-white px-6">
-          <motion.h1
+          <m.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
             className="font-display text-6xl md:text-8xl font-bold mb-6 tracking-tight"
           >
             Paula Mitchell
-          </motion.h1>
-          <motion.p
+          </m.h1>
+          <m.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
             className="font-body text-lg md:text-xl font-light tracking-wide max-w-2xl mx-auto"
           >
             Capturing moments through a minimalist lens
-          </motion.p>
+          </m.p>
         </div>
-      </motion.div>
+      </m.div>
     </section>
   );
 };
