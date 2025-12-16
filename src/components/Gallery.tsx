@@ -10,7 +10,7 @@ import "yet-another-react-lightbox/styles.css";
 import retrato from "@/assets/Retrato/IMG_9558.jpg";
 import productoM2 from "@/assets/Producto/Producto_m2.jpg";
 import landscape1 from "@/assets/landscape-1.jpg";
-import editorial from "@/assets/Editorial/20251209-IMG_9718-min.jpg";
+import editorial from "@/assets/Editorial/20251209-IMG_9718.jpg";
 
 const collections = [
   {
